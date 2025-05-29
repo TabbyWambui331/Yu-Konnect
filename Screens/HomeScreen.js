@@ -10,92 +10,98 @@ import {
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen({ navigation }) {
   const [darkMode, setDarkMode] = useState(false);
   const themeStyles = darkMode ? darkStyles : lightStyles;
 
   return (
-    <LinearGradient
-      colors={darkMode ? ['#121212', '#1E1E1E'] : ['#E0F7FA', '#FFF']}
-      style={themeStyles.container}
-    >
-      <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
-        <Image source={require('../assets/konnect.png')} style={themeStyles.logo} />
-        
-        {/* Toggle Switch */}
-        <View style={themeStyles.switchContainer}>
-          <Text style={themeStyles.switchLabel}>{darkMode ? 'Dark Mode' : 'Light Mode'}</Text>
-          <Switch
-            value={darkMode}
-            onValueChange={setDarkMode}
-            thumbColor={darkMode ? '#03DAC6' : '#fff'}
-            trackColor={{ false: "#ccc", true: "#6200EE" }}
-          />
-        </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <LinearGradient
+        colors={darkMode ? ['#121212', '#1E1E1E'] : ['#E0F7FA', '#FFF']}
+        style={themeStyles.container}
+      >
+        <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
+          <View style={themeStyles.topRow}>
+            {/* Profile Avatar on Top Left */}
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+              <Image
+                source={{ uri: 'https://i.pravatar.cc/100' }}
+                style={themeStyles.avatarLarge}
+              />
+            </TouchableOpacity>
+            {/* App Logo on Top Right */}
+            <Image source={require('../assets/konnect.png')} style={themeStyles.logoSmall} />
+          </View>
 
-       <View style={themeStyles.header}>
-  <View>
-    <Text style={themeStyles.welcome}>Hey Champion,</Text>
-    <Text style={themeStyles.username}>Empowering Kiambu Youth through Opportunities! 👊</Text>
-  </View>
+          {/* Toggle Switch */}
+          <View style={themeStyles.switchContainer}>
+            <Text style={themeStyles.switchLabel}>{darkMode ? 'Dark Mode' : 'Light Mode'}</Text>
+            <Switch
+              value={darkMode}
+              onValueChange={setDarkMode}
+              thumbColor={darkMode ? '#03DAC6' : '#fff'}
+              trackColor={{ false: "#ccc", true: "#6200EE" }}
+            />
+          </View>
 
-  <View style={themeStyles.headerRight}>
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Notifications')} // create this screen later
-      style={themeStyles.notificationIcon}
-    >
-      <Ionicons name="notifications-outline" size={26} color={darkMode ? "#fff" : "#333"} />
-    </TouchableOpacity>
+          <View style={themeStyles.header}>
+            <View>
+              <Text style={themeStyles.welcome}>Hey Champion!</Text>
+              <Text style={themeStyles.username}>Stay informed, Find opportunities, Partnerships and be in the know! 👊</Text>
+            </View>
+            <View style={themeStyles.headerRight}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Notifications')}
+                style={themeStyles.notificationIcon}
+              >
+                <Ionicons name="notifications-outline" size={26} color={darkMode ? "#fff" : "#333"} />
+              </TouchableOpacity>
+            </View>
+          </View>
 
-    <Image
-      source={{ uri: 'https://i.pravatar.cc/100' }}
-      style={themeStyles.avatar}
-    />
-  </View>
-</View>
+          {/* Quote */}
+          <Text style={themeStyles.quote}>
+            “The future belongs to those who prepare for it today.” – Malcolm X
+          </Text>
 
-
-        {/* Quote */}
-        <Text style={themeStyles.quote}>
-          “The future belongs to those who prepare for it today.” – Malcolm X
-        </Text>
-
-        {/* Navigation Grid */}
-        <View style={themeStyles.grid}>
-          <NavCard
-            icon={<Ionicons name="school" size={32} color="#2E86DE" />}
-            label="Trainings"
-            onPress={() => navigation.navigate('Training')}
-            style={themeStyles.card}
-          />
-          <NavCard
-            icon={<MaterialCommunityIcons name="calendar-clock" size={32} color="#2E86DE" />}
-            label="Book Appointment"
-            onPress={() => navigation.navigate('Booking')}
-            style={themeStyles.card}
-          />
-          <NavCard
-            icon={<FontAwesome5 name="handshake" size={32} color="#2E86DE" />}
-            label="Partnerships"
-            onPress={() => navigation.navigate('Partnership')}
-            style={themeStyles.card}
-          />
-          <NavCard
-            icon={<Ionicons name="chatbubbles" size={32} color="#2E86DE" />}
-            label="Chatbot"
-            onPress={() => navigation.navigate('Chatbot')}
-            style={themeStyles.card}
-          />
-          <NavCard
-            icon={<Ionicons name="person-circle-outline" size={32} color="#2E86DE" />}
-            label="Profile"
-            onPress={() => navigation.navigate('Profile')}
-            style={themeStyles.card}
-          />
-        </View>
-      </ScrollView>
-    </LinearGradient>
+          {/* Navigation Grid */}
+          <View style={themeStyles.grid}>
+            <NavCard
+              icon={<Ionicons name="school" size={32} color="#2E86DE" />}
+              label="Trainings"
+              onPress={() => navigation.navigate('Training')}
+              style={themeStyles.card}
+            />
+            <NavCard
+              icon={<MaterialCommunityIcons name="calendar-clock" size={32} color="#2E86DE" />}
+              label="Book Appointment"
+              onPress={() => navigation.navigate('Booking')}
+              style={themeStyles.card}
+            />
+            <NavCard
+              icon={<FontAwesome5 name="handshake" size={32} color="#2E86DE" />}
+              label="Partnerships"
+              onPress={() => navigation.navigate('Partners')}
+              style={themeStyles.card}
+            />
+            <NavCard
+              icon={<Ionicons name="chatbubbles" size={32} color="#2E86DE" />}
+              label="Chatbot"
+              onPress={() => navigation.navigate('Chatbot')}
+              style={themeStyles.card}
+            />
+            <NavCard
+              icon={<Ionicons name="person-circle-outline" size={32} color="#2E86DE" />}
+              label="Profile"
+              onPress={() => navigation.navigate('Profile')}
+              style={themeStyles.card}
+            />
+          </View>
+        </ScrollView>
+      </LinearGradient>
+    </SafeAreaView>
   );
 }
 
@@ -108,12 +114,33 @@ function NavCard({ icon, label, onPress, style }) {
     </TouchableOpacity>
   );
 }
+
 const baseStyles = {
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  avatarLarge: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: '#2E86DE',
+  },
+  logoSmall: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+  },
   logo: {
-    width: 100,
+    width: 200,
     height: 100,
-    marginBottom: 15,
-    alignSelf: 'center',
+    marginBottom: 25,
+    alignSelf: 'topright',
+    borderRadius: 100,
   },
   switchContainer: {
     alignItems: 'flex-end',

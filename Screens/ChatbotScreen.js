@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ChatbotScreen() {
   const [messages, setMessages] = useState([
@@ -43,45 +44,47 @@ export default function ChatbotScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={styles.container}
-    >
-      <FlatList
-        data={messages}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View
-            style={[
-              styles.message,
-              item.sender === 'user' ? styles.userMessage : styles.botMessage,
-            ]}
-          >
-            <Text style={styles.messageText}>{item.text}</Text>
-          </View>
-        )}
-        contentContainerStyle={{ padding: 10 }}
-      />
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={input}
-          onChangeText={setInput}
-          placeholder="Ask me anything..."
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={styles.container}
+      >
+        <FlatList
+          data={messages}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View
+              style={[
+                styles.message,
+                item.sender === 'user' ? styles.userMessage : styles.botMessage,
+              ]}
+            >
+              <Text style={styles.messageText}>{item.text}</Text>
+            </View>
+          )}
+          contentContainerStyle={{ padding: 10 }}
         />
-        <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
-          <Text style={styles.sendText}>Send</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={input}
+            onChangeText={setInput}
+            placeholder="Ask me anything..."
+          />
+          <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+            <Text style={styles.sendText}>Send</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f6ff',
+    backgroundColor: '#222831',
   },
   message: {
     padding: 12,
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   messageText: {
-    color: '#fff',
+    color: '#4ED7F1',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    backgroundColor: '#f3f4f6',
+    backgroundColor: '#4ED7F1',
     padding: 10,
     borderRadius: 10,
   },
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sendText: {
-    color: '#fff',
+    color: '#FF9F00',
     fontWeight: 'bold',
   },
 });
