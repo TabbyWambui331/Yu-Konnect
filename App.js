@@ -8,6 +8,7 @@ import BookingScreen from './Screens/BookingScreen';
 import ChatbotScreen from './Screens/ChatbotScreen';
 import HomeScreen from './Screens/HomeScreen';
 import LogScreen from './Screens/LogScreen';
+import NotificationsScreen from './Screens/NotificationScreen';
 import PartnersScreen from './Screens/PartnersScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import TrainingScreen from './Screens/TrainingScreen';
@@ -17,8 +18,9 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Log">
+      <Stack.Navigator initialRouteName="Lets Connect Today!">
         <Stack.Screen name="Log" component={LogScreen} />
+        <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ title: 'Notifications' }} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Booking" component={BookingScreen} />
         <Stack.Screen name="Chatbot" component={ChatbotScreen} />

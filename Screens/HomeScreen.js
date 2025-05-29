@@ -6,90 +6,131 @@ import {
   TouchableOpacity,
   Image,
   Switch,
+  ScrollView,
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function HomeScreen({ navigation }) {
   const [darkMode, setDarkMode] = useState(false);
-
   const themeStyles = darkMode ? darkStyles : lightStyles;
 
   return (
-    <View style={[themeStyles.container]}>
-      <Image source={require('assets/konnect.png')} style={themeStyles.logo} />
-      {/* Toggle Switch */}
-      <View style={{ alignItems: 'flex-end', marginBottom: 10 }}>
-        <Switch
-          value={darkMode}
-          onValueChange={setDarkMode}
-          thumbColor={darkMode ? "#2E86DE" : "#fff"}
-          trackColor={{ false: "#ccc", true: "#333" }}
-        />
-      </View>
-      {/* Header */}
-      <View style={themeStyles.header}>
-        <View>
-          <Text style={themeStyles.welcome}>Welcome,</Text>
-          <Text style={themeStyles.username}>Connecting the Youth of Kiambu👋</Text>
+    <LinearGradient
+      colors={darkMode ? ['#121212', '#1E1E1E'] : ['#E0F7FA', '#FFF']}
+      style={themeStyles.container}
+    >
+      <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
+        <Image source={require('../assets/konnect.png')} style={themeStyles.logo} />
+        
+        {/* Toggle Switch */}
+        <View style={themeStyles.switchContainer}>
+          <Text style={themeStyles.switchLabel}>{darkMode ? 'Dark Mode' : 'Light Mode'}</Text>
+          <Switch
+            value={darkMode}
+            onValueChange={setDarkMode}
+            thumbColor={darkMode ? '#03DAC6' : '#fff'}
+            trackColor={{ false: "#ccc", true: "#6200EE" }}
+          />
         </View>
-        <Image
-          source={{ uri: 'https://i.pravatar.cc/100' }}
-          style={themeStyles.avatar}
-        />
-      </View>
 
-      {/* Navigation Grid */}
-      <View style={themeStyles.grid}>
-        <TouchableOpacity style={themeStyles.card} onPress={() => navigation.navigate('Training')}>
-          <Ionicons name="school" size={32} color="#2E86DE" />
-          <Text style={themeStyles.cardText}>Trainings</Text>
-        </TouchableOpacity>
+       <View style={themeStyles.header}>
+  <View>
+    <Text style={themeStyles.welcome}>Hey Champion,</Text>
+    <Text style={themeStyles.username}>Empowering Kiambu Youth through Opportunities! 👊</Text>
+  </View>
 
-        <TouchableOpacity style={themeStyles.card} onPress={() => navigation.navigate('Booking')}>
-          <MaterialCommunityIcons name="calendar-clock" size={32} color="#2E86DE" />
-          <Text style={themeStyles.cardText}>Book Appointment</Text>
-        </TouchableOpacity>
+  <View style={themeStyles.headerRight}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Notifications')} // create this screen later
+      style={themeStyles.notificationIcon}
+    >
+      <Ionicons name="notifications-outline" size={26} color={darkMode ? "#fff" : "#333"} />
+    </TouchableOpacity>
 
-        <TouchableOpacity style={themeStyles.card} onPress={() => navigation.navigate('Partnership')}>
-          <FontAwesome5 name="handshake" size={32} color="#2E86DE" />
-          <Text style={themeStyles.cardText}>Partnerships</Text>
-        </TouchableOpacity>
+    <Image
+      source={{ uri: 'https://i.pravatar.cc/100' }}
+      style={themeStyles.avatar}
+    />
+  </View>
+</View>
 
-        <TouchableOpacity style={themeStyles.card} onPress={() => navigation.navigate('Chatbot')}>
-          <Ionicons name="chatbubbles" size={32} color="#2E86DE" />
-          <Text style={themeStyles.cardText}>Chatbot</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity style={themeStyles.card} onPress={() => navigation.navigate('Profile')}>
-          <Ionicons name="person-circle-outline" size={32} color="#2E86DE" />
-          <Text style={themeStyles.cardText}>Profile</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        {/* Quote */}
+        <Text style={themeStyles.quote}>
+          “The future belongs to those who prepare for it today.” – Malcolm X
+        </Text>
+
+        {/* Navigation Grid */}
+        <View style={themeStyles.grid}>
+          <NavCard
+            icon={<Ionicons name="school" size={32} color="#2E86DE" />}
+            label="Trainings"
+            onPress={() => navigation.navigate('Training')}
+            style={themeStyles.card}
+          />
+          <NavCard
+            icon={<MaterialCommunityIcons name="calendar-clock" size={32} color="#2E86DE" />}
+            label="Book Appointment"
+            onPress={() => navigation.navigate('Booking')}
+            style={themeStyles.card}
+          />
+          <NavCard
+            icon={<FontAwesome5 name="handshake" size={32} color="#2E86DE" />}
+            label="Partnerships"
+            onPress={() => navigation.navigate('Partnership')}
+            style={themeStyles.card}
+          />
+          <NavCard
+            icon={<Ionicons name="chatbubbles" size={32} color="#2E86DE" />}
+            label="Chatbot"
+            onPress={() => navigation.navigate('Chatbot')}
+            style={themeStyles.card}
+          />
+          <NavCard
+            icon={<Ionicons name="person-circle-outline" size={32} color="#2E86DE" />}
+            label="Profile"
+            onPress={() => navigation.navigate('Profile')}
+            style={themeStyles.card}
+          />
+        </View>
+      </ScrollView>
+    </LinearGradient>
   );
 }
 
-const lightStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#E8F0FE',
-    paddingTop: 50,
-    paddingHorizontal: 20,
+// Reusable NavCard component
+function NavCard({ icon, label, onPress, style }) {
+  return (
+    <TouchableOpacity style={style} onPress={onPress}>
+      {icon}
+      <Text style={style.cardText}>{label}</Text>
+    </TouchableOpacity>
+  );
+}
+const baseStyles = {
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 15,
+    alignSelf: 'center',
   },
-  logo: { width: 120, height: 120, marginBottom: 20, alignSelf: 'center' },
+  switchContainer: {
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+  switchLabel: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginRight: 10,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  welcome: {
-    fontSize: 18,
-    color: '#333',
-  },
-  username: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2E86DE',
+    marginBottom: 10,
   },
   avatar: {
     width: 50,
@@ -99,50 +140,99 @@ const lightStyles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 40,
+    marginTop: 20,
     justifyContent: 'space-between',
   },
   card: {
-    backgroundColor: '#fff',
     width: '47%',
     paddingVertical: 25,
     marginBottom: 20,
     alignItems: 'center',
-    borderRadius: 15,
-    elevation: 2,
+    borderRadius: 18,
+    elevation: 3,
   },
   cardText: {
     marginTop: 10,
     fontSize: 14,
+    fontWeight: '600',
+  },
+  quote: {
+    fontStyle: 'italic',
+    textAlign: 'center',
+    fontSize: 14,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+};
+
+const lightStyles = StyleSheet.create({
+  ...baseStyles,
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 20,
+    backgroundColor: '#E0F7FA',
+  },
+  switchLabel: {
+    ...baseStyles.switchLabel,
     color: '#333',
+  },
+  welcome: {
+    fontSize: 18,
+    color: '#333',
+  },
+  username: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#2E86DE',
+  },
+  card: {
+    ...baseStyles.card,
+    backgroundColor: '#fff',
+  },
+  cardText: {
+    ...baseStyles.cardText,
+    color: '#333',
+  },
+  quote: {
+    ...baseStyles.quote,
+    color: '#555',
   },
 });
 
 const darkStyles = StyleSheet.create({
-  ...lightStyles,
+  ...baseStyles,
   container: {
-    ...lightStyles.container,
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 20,
     backgroundColor: '#181A20',
   },
-  logo: { ...lightStyles.logo },
-  header: { ...lightStyles.header },
+  switchLabel: {
+    ...baseStyles.switchLabel,
+    color: '#ccc',
+  },
   welcome: {
-    ...lightStyles.welcome,
+    fontSize: 18,
     color: '#fff',
   },
   username: {
-    ...lightStyles.username,
+    fontSize: 22,
+    fontWeight: 'bold',
     color: '#90CAF9',
   },
-  avatar: { ...lightStyles.avatar },
-  grid: { ...lightStyles.grid },
   card: {
-    ...lightStyles.card,
+    ...baseStyles.card,
     backgroundColor: '#23272F',
   },
   cardText: {
-    ...lightStyles.cardText,
+    ...baseStyles.cardText,
     color: '#fff',
   },
+  quote: {
+    ...baseStyles.quote,
+    color: '#aaa',
+  },
 });
-// This code defines a HomeScreen component for a React Native application.
+// This is the HomeScreen component for a React Native app.
+// It includes a dark mode toggle, a welcome message, and a grid of navigation cards.

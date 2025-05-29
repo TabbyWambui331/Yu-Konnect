@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 
-export default function PartnershipScreen() {
+export default function PartnersScreen({ navigation }) {
   const [organization, setOrganization] = useState('');
   const [contactPerson, setContactPerson] = useState('');
   const [email, setEmail] = useState('');
@@ -60,6 +60,10 @@ export default function PartnershipScreen() {
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Submit Proposal</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Partners')}>
+        <Text style={styles.link}>Already a partner? Login here</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -105,5 +109,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: '600',
+  },
+  link: {
+    marginTop: 15,
+    color: '#1f3c88',
+    textAlign: 'center',
   },
 });

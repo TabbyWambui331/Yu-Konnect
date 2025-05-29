@@ -36,7 +36,11 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <TouchableOpacity onPress={pickImage}>
         <Image
-          source={image ? { uri: image } : require('../assets/avatar-placeholder.png')}
+          source={
+            image
+              ? { uri: image }
+              : require('../assets/avatar-placeholder.png')
+          }
           style={styles.avatar}
         />
         <Text style={styles.changePhotoText}>Tap to change photo</Text>

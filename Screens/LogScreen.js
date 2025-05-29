@@ -5,107 +5,111 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
+  ImageBackground,
+  Image,
 } from 'react-native';
 
-export default function LogScreen({ navigation }) {
-  const [username, setUsername] = useState('');
+export default function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleLogin = () => {
-    // You can later integrate Firebase or your auth method here
-    if (username && password) {
-      navigation.navigate('Home');
-    } else {
-      Alert.alert('Please enter both username and password.');
-    }
-  };
-
-  const handleGuestLogin = () => {
-    navigation.navigate('Home');
-  };
-
-  const handleForgotPassword = () => {
-    Alert.alert('Redirecting to reset password...');
-  };
+  const [username, setUsername] = useState('');
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Kiambu_u_koneect</Text>
+    <ImageBackground
+      source={require('../assets/bg.jpg')}
+      style={styles.background}
+      blurRadius={5} //  blur effect
+    >
+      <View style={styles.overlay}>
+        <Image
+          source={require('../assets/konnect.png')}
+          style={styles.logo}
+        />
+        <Text style={styles.heading}>Welcome to Kiambu_u_koneect</Text>
 
-      <TextInput
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          placeholderTextColor="#ccc"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#ccc"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#ccc"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginText}>Login</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton}>
+          <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={handleGuestLogin}>
-        <Text style={styles.guestText}>Continue as Guest</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleForgotPassword}>
-        <Text style={styles.forgotText}>Forgot Password?</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.guestText}>Continue as Guest</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
-
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: '#E8F0FE',
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
   },
-  title: {
-    fontSize: 32,
-    marginBottom: 40,
+  overlay: {
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 30,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 20,
+  },
+  heading: {
+    fontSize: 22,
+    color: '#fff',
+    marginBottom: 20,
     fontWeight: 'bold',
-    color: '#2E86DE',
   },
   input: {
     width: '100%',
-    height: 50,
-    backgroundColor: '#FFF',
-    borderRadius: 10,
-    paddingHorizontal: 15,
+    padding: 15,
     marginBottom: 15,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 10,
+    color: '#000',
   },
   loginButton: {
     backgroundColor: '#2E86DE',
-    width: '100%',
-    padding: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 50,
     borderRadius: 10,
-    alignItems: 'center',
-    marginVertical: 10,
+    marginTop: 10,
   },
   loginText: {
     color: '#fff',
-    fontWeight: 'bold',
+    fontSize: 16,
   },
   guestText: {
-    marginTop: 10,
-    color: '#2E86DE',
-    fontWeight: '600',
-  },
-  forgotText: {
-    marginTop: 15,
-    color: '#888',
-    fontStyle: 'italic',
+    color: '#fff',
+    marginTop: 20,
+    textDecorationLine: 'underline',
   },
 });
+// This code defines a LoginScreen component for a React Native application.
+// It includes a background image, an overlay for better visibility, and input fields for username, email, and password.
