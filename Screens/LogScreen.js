@@ -18,26 +18,33 @@ export default function LoginScreen({ navigation }) {
     <ImageBackground
       source={require('../assets/bg.jpg')}
       style={styles.background}
-      blurRadius={5} //  blur effect
+      blurRadius={3} //  blur effect
     >
       <View style={styles.overlay}>
         <Image
           source={require('../assets/konnect.png')}
           style={styles.logo}
         />
-        <Text style={styles.heading}>Welcome to Kiambu_u_koneect</Text>
+        <Text style={styles.heading}
+          fontSize={22}
+          fontWeight="bold"
+          color="#4300FF">
+          Welcome to Kiambu_u_Konnect </Text>
+          <Text bodyText="true" color="#ffff" fontSize={16} fontWeight="bold" paddingTop={10}>
+            Connecting Kiambu Youth to Opportunities
+          </Text>
 
         <TextInput
           style={styles.input}
           placeholder="Username"
-          placeholderTextColor="#ccc"
+          placeholderTextColor="#333333"
           value={username}
           onChangeText={setUsername}
         />
         <TextInput
           style={styles.input}
           placeholder="Email"
-          placeholderTextColor="#ccc"
+          placeholderTextColor="#333333"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -45,7 +52,7 @@ export default function LoginScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Password"
-          placeholderTextColor="#ccc"
+          placeholderTextColor="#333333"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
@@ -77,7 +84,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 100,
-    borderRadius: 50,
+    borderRadius: 30,
     marginBottom: 20,
   },
   heading: {

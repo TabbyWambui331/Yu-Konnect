@@ -18,7 +18,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Lets Connect Today!">
+      <Stack.Navigator initialRouteName="Log">
         <Stack.Screen name="Log" component={LogScreen} />
         <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ title: 'Notifications' }} />
         <Stack.Screen name="Home" component={HomeScreen} />
