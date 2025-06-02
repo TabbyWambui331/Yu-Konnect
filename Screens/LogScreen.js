@@ -18,21 +18,23 @@ export default function LoginScreen({ navigation }) {
     <ImageBackground
       source={require('../assets/bg.jpg')}
       style={styles.background}
-      blurRadius={3} //  blur effect
+      blurRadius={5} //  blur effect
     >
       <View style={styles.overlay}>
         <Image
-          source={require('../assets/konnect.png')}
+          source={require('../assets/logo.jpg')}
           style={styles.logo}
         />
-        <Text style={styles.heading}
-          fontSize={22}
-          fontWeight="bold"
-          color="#4300FF">
-          Welcome to Kiambu_u_Konnect </Text>
-          <Text bodyText="true" color="#ffff" fontSize={16} fontWeight="bold" paddingTop={10}>
+        <Text style={styles.heading}>
+          Welcome to Kiambu_U_Konnect
+        </Text>
+
+        {/* Container for the tagline */}
+        <View style={styles.taglineContainer}>
+          <Text style={styles.taglineText}>
             Connecting Kiambu Youth to Opportunities
           </Text>
+        </View>
 
         <TextInput
           style={styles.input}
@@ -66,6 +68,9 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.guestText}>Continue as Guest</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
+      </View>
     </ImageBackground>
   );
 }
@@ -86,12 +91,27 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 30,
     marginBottom: 20,
+    
   },
   heading: {
-    fontSize: 22,
-    color: '#fff',
+    fontSize: 32,
+    color: '#FFF',
     marginBottom: 20,
     fontWeight: 'bold',
+  },
+  taglineContainer: {
+    backgroundColor: 'rgba(23, 98, 173, 0.15)',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  taglineText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   input: {
     width: '100%',
@@ -116,6 +136,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: 20,
     textDecorationLine: 'underline',
+  },
+  footer: {
+    marginTop: 30,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#aaa',
+    fontSize: 12,
   },
 });
 // This code defines a LoginScreen component for a React Native application.

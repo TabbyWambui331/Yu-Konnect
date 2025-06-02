@@ -76,6 +76,9 @@ export default function ChatbotScreen() {
             <Text style={styles.sendText}>Send</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -127,5 +130,14 @@ const styles = StyleSheet.create({
   sendText: {
     color: '#FF9F00',
     fontWeight: 'bold',
+  },
+  footer: {
+    marginTop: 30,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#aaa',
+    fontSize: 12,
   },
 });

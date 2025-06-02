@@ -25,7 +25,7 @@ export default function PartnersScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.heading}>Partner With Kiambu_u_koneect</Text>
+      <Text style={styles.heading}>Partner With Kiambu County</Text>
       <Text style={styles.description}>
         We welcome organizations, mentors, and businesses to collaborate with us in empowering youth in Kiambu County.
       </Text>
@@ -64,6 +64,10 @@ export default function PartnersScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate('Partners')}>
         <Text style={styles.link}>Already a partner? Login here</Text>
       </TouchableOpacity>
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
+      </View>
     </ScrollView>
   );
 }
@@ -114,5 +118,14 @@ const styles = StyleSheet.create({
     marginTop: 15,
     color: '#1f3c88',
     textAlign: 'center',
+  },
+  footer: {
+    marginTop: 30,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#aaa',
+    fontSize: 12,
   },
 });

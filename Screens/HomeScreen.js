@@ -15,6 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function HomeScreen({ navigation }) {
   const [darkMode, setDarkMode] = useState(false);
   const themeStyles = darkMode ? darkStyles : lightStyles;
+  const username = "John Doe"; // Replace with dynamic username if available
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -23,16 +24,19 @@ export default function HomeScreen({ navigation }) {
         style={themeStyles.container}
       >
         <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
-          <View style={themeStyles.topRow}>
-            {/* Profile Avatar on Top Left */}
+          {/* Logo Dominating at the Top */}
+          <View style={themeStyles.logoContainer}>
+            <Image source={require('../assets/logo.jpg')} style={themeStyles.logoDominant} />
+          </View>
+          {/* Avatar and Username Centered Below Logo */}
+          <View style={themeStyles.avatarBlock}>
             <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
               <Image
                 source={{ uri: 'https://i.pravatar.cc/100' }}
-                style={themeStyles.avatarLarge}
+                style={themeStyles.avatarSmall}
               />
             </TouchableOpacity>
-            {/* App Logo on Top Right */}
-            <Image source={require('../assets/konnect.png')} style={themeStyles.logoSmall} />
+            <Text style={themeStyles.avatarUsername}>{username}</Text>
           </View>
 
           {/* Toggle Switch */}
@@ -99,6 +103,10 @@ export default function HomeScreen({ navigation }) {
               style={themeStyles.card}
             />
           </View>
+
+          <View style={themeStyles.footer}>
+            <Text style={themeStyles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
+          </View>
         </ScrollView>
       </LinearGradient>
     </SafeAreaView>
@@ -136,11 +144,12 @@ const baseStyles = {
     borderRadius: 10,
   },
   logo: {
-    width: 200,
+    width: 100,
     height: 100,
-    marginBottom: 25,
-    alignSelf: 'topright',
-    borderRadius: 100,
+    marginBottom: 35,
+    alignSelf: 'center',
+    borderRadius: 20,
+    padding: 30,
   },
   switchContainer: {
     alignItems: 'flex-end',
@@ -190,6 +199,43 @@ const baseStyles = {
     marginTop: 10,
     marginBottom: 20,
   },
+  logoContainer: {
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  logoDominant: {
+    width: 140,
+    height: 140,
+    borderRadius: 20,
+    marginBottom: 10,
+  },
+  avatarBlock: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  avatarSmall: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: '#2E86DE',
+  },
+  avatarUsername: {
+    marginTop: 6,
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#2E86DE',
+  },
+  footer: {
+    marginTop: 30,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#aaa',
+    fontSize: 12,
+  },
 };
 
 const lightStyles = StyleSheet.create({
@@ -225,6 +271,10 @@ const lightStyles = StyleSheet.create({
     ...baseStyles.quote,
     color: '#555',
   },
+  avatarUsername: {
+    ...baseStyles.avatarUsername,
+    color: '#2E86DE',
+  },
 });
 
 const darkStyles = StyleSheet.create({
@@ -259,6 +309,10 @@ const darkStyles = StyleSheet.create({
   quote: {
     ...baseStyles.quote,
     color: '#aaa',
+  },
+  avatarUsername: {
+    ...baseStyles.avatarUsername,
+    color: '#90CAF9',
   },
 });
 // This is the HomeScreen component for a React Native app.

@@ -62,6 +62,10 @@ export default function BookingScreen() {
       <TouchableOpacity onPress={handleSubmit} style={styles.button}>
         <Text style={styles.buttonText}>Submit Booking</Text>
       </TouchableOpacity>
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
+      </View>
     </ScrollView>
   );
 }
@@ -114,5 +118,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  footer: {
+    marginTop: 30,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#aaa',
+    fontSize: 12,
   },
 });

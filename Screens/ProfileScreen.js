@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function ProfileScreen() {
@@ -33,7 +33,7 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity onPress={pickImage}>
         <Image
           source={
@@ -64,7 +64,11 @@ export default function ProfileScreen() {
       <TouchableOpacity style={styles.button} onPress={handleSave}>
         <Text style={styles.buttonText}>Save Profile</Text>
       </TouchableOpacity>
-    </View>
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -117,5 +121,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  footer: {
+    marginTop: 30,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#aaa',
+    fontSize: 12,
   },
 });

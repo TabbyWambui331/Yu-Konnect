@@ -45,6 +45,9 @@ export default function TrainingScreen() {
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: 20 }}
       />
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
+      </View>
     </View>
   );
 }
@@ -86,5 +89,14 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: '#444',
+  },
+  footer: {
+    marginTop: 30,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#aaa',
+    fontSize: 12,
   },
 });
