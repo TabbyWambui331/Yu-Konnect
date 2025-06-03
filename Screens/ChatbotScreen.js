@@ -42,7 +42,7 @@ export default function ChatbotScreen() {
           contents: [{ parts: [{ text: question }] }]
         }
       );
-      // Adjust this based on Gemini's actual response structure
+      // Adjust the response structure based on the actual API response
       return response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't understand that.";
     } catch (error) {
       console.error(error);
