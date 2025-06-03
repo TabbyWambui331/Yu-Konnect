@@ -20,7 +20,7 @@ export default function CommunityScreen({ navigation }) {
     if (!newPost.trim()) return;
     const newEntry = {
       id: Date.now().toString(),
-      user: 'Youth Leader',
+      user: 'Youth member',
       avatar: 'https://i.pravatar.cc/100',
       text: newPost.trim(),
       time: 'Just now',
