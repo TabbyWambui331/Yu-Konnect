@@ -104,6 +104,22 @@ export default function HomeScreen({ navigation }) {
             />
           </View>
 
+          {/* Community Button */}
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#2E86DE',
+              paddingVertical: 14,
+              borderRadius: 10,
+              marginTop: 10,
+              alignItems: 'center',
+            }}
+            onPress={() => navigation.navigate('Community')}
+          >
+            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>
+              Go to Community
+            </Text>
+          </TouchableOpacity>
+
           <View style={themeStyles.footer}>
             <Text style={themeStyles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
           </View>

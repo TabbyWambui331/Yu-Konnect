@@ -18,9 +18,10 @@ export default function LoginScreen({ navigation }) {
     <ImageBackground
       source={require('../assets/bg.jpg')}
       style={styles.background}
-      blurRadius={5} //  blur effect
+      blurRadius={5}
     >
       <View style={styles.overlay}>
+        {/* Centered and prominent logo */}
         <Image
           source={require('../assets/logo.jpg')}
           style={styles.logo}
@@ -29,7 +30,7 @@ export default function LoginScreen({ navigation }) {
           Welcome to Kiambu_U_Konnect
         </Text>
 
-        {/* Container for the tagline */}
+        {/* Tagline container */}
         <View style={styles.taglineContainer}>
           <Text style={styles.taglineText}>
             Connecting Kiambu Youth to Opportunities
@@ -60,12 +61,16 @@ export default function LoginScreen({ navigation }) {
           secureTextEntry
         />
 
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Home')}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Text style={styles.guestText}>Continue as Guest</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.createAccountButton}>
+          <Text style={styles.createAccountText}>Create an Account</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
@@ -74,6 +79,7 @@ export default function LoginScreen({ navigation }) {
     </ImageBackground>
   );
 }
+
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -83,15 +89,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.4)',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center', // Ensures everything, including logo, is centered
     paddingHorizontal: 30,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 50, // Increased size for visibility
+    height: 50,
     borderRadius: 30,
     marginBottom: 20,
-    
+    alignSelf: 'center', // Ensures logo is centered horizontally
   },
   heading: {
     fontSize: 32,
@@ -136,6 +142,21 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: 20,
     textDecorationLine: 'underline',
+  },
+  createAccountButton: {
+    backgroundColor: '#fff',
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 10,
+    marginTop: 15,
+    borderWidth: 1,
+    borderColor: '#2E86DE',
+  },
+  createAccountText: {
+    color: '#2E86DE',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
   },
   footer: {
     marginTop: 30,

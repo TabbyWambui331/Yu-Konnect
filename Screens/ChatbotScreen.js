@@ -10,6 +10,8 @@ import {
   Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import axios from 'axios';
+import { GEMINI_API_KEY } from '@env';
 
 export default function ChatbotScreen() {
   const [messages, setMessages] = useState([
@@ -17,30 +19,35 @@ export default function ChatbotScreen() {
   ]);
   const [input, setInput] = useState('');
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const userMessage = { id: Date.now().toString(), text: input, sender: 'user' };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
-    // Simulate bot response
-    setTimeout(() => {
-      const botReply = getBotReply(input);
-      const botMessage = { id: Date.now().toString() + 'b', text: botReply, sender: 'bot' };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
-    }, 1000);
+    // Call Gemini API for AI response
+    const botReply = await getGeminiReply(input);
+    const botMessage = { id: Date.now().toString() + 'b', text: botReply, sender: 'bot' };
+    setMessages((prevMessages) => [...prevMessages, botMessage]);
 
     setInput('');
   };
 
-  const getBotReply = (question) => {
-    const q = question.toLowerCase();
-
-    if (q.includes('training')) return '🧑‍💻 You can find upcoming trainings under the Training tab!';
-    if (q.includes('partnership')) return '🤝 Go to the Partnership section to submit your proposal.';
-    if (q.includes('book')) return '📅 You can book appointments on the Booking screen.';
-    if (q.includes('profile')) return '👤 You can update your profile info under the Profile tab.';
-    return "🙈 Sorry, I didn't understand that. Try asking about training, booking, or partnerships.";
+  //  Gemini API call
+  const getGeminiReply = async (question) => {
+    try {
+      const response = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          contents: [{ parts: [{ text: question }] }]
+        }
+      );
+      // Adjust this based on Gemini's actual response structure
+      return response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't understand that.";
+    } catch (error) {
+      console.error(error);
+      return "Sorry, there was a problem connecting to the AI.";
+    }
   };
 
   return (
