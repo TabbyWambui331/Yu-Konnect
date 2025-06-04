@@ -3,148 +3,128 @@ import {
   View,
   Text,
   TextInput,
-  StyleSheet,
-  FlatList,
   TouchableOpacity,
+  FlatList,
+  StyleSheet,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import axios from 'axios';
-import { GEMINI_API_KEY } from '@env';
 
 export default function ChatbotScreen() {
   const [messages, setMessages] = useState([
-    { id: '1', text: '👋 Hi! I’m Koneect Assistant. How can I help you today?', sender: 'bot' },
+    { id: '1', sender: 'bot', text: 'Hi there! 👋 How can I help you today?' },
   ]);
   const [input, setInput] = useState('');
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
+  const handleSend = () => {
+    if (input.trim() === '') return;
 
-    const userMessage = { id: Date.now().toString(), text: input, sender: 'user' };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    const userMessage = { id: Date.now().toString(), sender: 'user', text: input };
+    const botMessage = getBotResponse(input);
 
-    // Call Gemini API for AI response
-    const botReply = await getGeminiReply(input);
-    const botMessage = { id: Date.now().toString() + 'b', text: botReply, sender: 'bot' };
-    setMessages((prevMessages) => [...prevMessages, botMessage]);
-
+    setMessages([...messages, userMessage, botMessage]);
     setInput('');
   };
 
-  //  Gemini API call
-  const getGeminiReply = async (question) => {
-    try {
-      const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          contents: [{ parts: [{ text: question }] }]
-        }
-      );
-      // Adjust the response structure based on the actual API response
-      return response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't understand that.";
-    } catch (error) {
-      console.error(error);
-      return "Sorry, there was a problem connecting to the AI.";
+  const getBotResponse = (text) => {
+    const msg = text.toLowerCase();
+    let reply = "I'm not sure I understand that yet, but I'm learning every day!";
+
+    if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+      reply = 'Hello! 😊 I’m your Kiambu-U-Konnect Assistant. Ask me about updates, booking, or partnerships.';
+    } else if (msg.includes('training')) {
+      reply = '📚 We offer various youth training programs! Visit the Training section for details.';
+    } else if (msg.includes('booking') || msg.includes('appointment')) {
+      reply = '🗓 You can book appointments with the county through the Booking screen.';
+    } else if (msg.includes('partnership')) {
+      reply = '🤝 Great! Head to the Partnership screen to explore collaboration opportunities.';
+    } else if (msg.includes('thank')) {
+      reply = "You're welcome! 🙌";
     }
+
+    return { id: Date.now().toString(), sender: 'bot', text: reply };
   };
 
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.container}
-      >
-        <FlatList
-          data={messages}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View
-              style={[
-                styles.message,
-                item.sender === 'user' ? styles.userMessage : styles.botMessage,
-              ]}
-            >
-              <Text style={styles.messageText}>{item.text}</Text>
-            </View>
-          )}
-          contentContainerStyle={{ padding: 10 }}
-        />
+  const renderItem = ({ item }) => (
+    <View style={[styles.messageContainer, item.sender === 'user' ? styles.userMessage : styles.botMessage]}>
+      <Text style={styles.messageText}>{item.text}</Text>
+    </View>
+  );
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={input}
-            onChangeText={setInput}
-            placeholder="Ask me anything..."
-          />
-          <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
-            <Text style={styles.sendText}>Send</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>© 2025 Yu-Konnect. Empowering Kiambu Youth.</Text>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+  return (
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.container}>
+      <FlatList
+        data={messages}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        contentContainerStyle={styles.chatContainer}
+      />
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Type your message..."
+          value={input}
+          onChangeText={setInput}
+        />
+        <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+          <Text style={styles.sendButtonText}>Send</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222831',
+    backgroundColor: '#E8F0FE',
   },
-  message: {
+  chatContainer: {
+    padding: 20,
+  },
+  messageContainer: {
     padding: 12,
-    marginVertical: 4,
     borderRadius: 10,
+    marginVertical: 5,
     maxWidth: '80%',
   },
   userMessage: {
-    backgroundColor: '#1f3c88',
+    backgroundColor: '#2E86DE',
     alignSelf: 'flex-end',
   },
   botMessage: {
-    backgroundColor: '#dfe9f3',
+    backgroundColor: '#d3e5ff',
     alignSelf: 'flex-start',
   },
   messageText: {
-    color: '#4ED7F1',
+    color: '#fff',
+    fontSize: 16,
   },
   inputContainer: {
     flexDirection: 'row',
     padding: 10,
     backgroundColor: '#fff',
-    borderTopColor: '#eee',
     borderTopWidth: 1,
+    borderColor: '#ccc',
   },
   input: {
     flex: 1,
-    backgroundColor: '#4ED7F1',
-    padding: 10,
-    borderRadius: 10,
+    backgroundColor: '#f1f1f1',
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    fontSize: 16,
   },
   sendButton: {
-    marginLeft: 10,
-    backgroundColor: '#1f3c88',
+    backgroundColor: '#2E86DE',
+    borderRadius: 25,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 10,
+    marginLeft: 10,
     justifyContent: 'center',
   },
-  sendText: {
-    color: '#FF9F00',
+  sendButtonText: {
+    color: '#fff',
     fontWeight: 'bold',
-  },
-  footer: {
-    marginTop: 30,
-    paddingVertical: 10,
-    alignItems: 'center',
-  },
-  footerText: {
-    color: '#aaa',
-    fontSize: 12,
   },
 });

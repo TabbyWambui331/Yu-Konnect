@@ -12,7 +12,7 @@ import LogScreen from './Screens/LogScreen';
 import NotificationsScreen from './Screens/NotificationScreen';
 import PartnersScreen from './Screens/PartnersScreen';
 import ProfileScreen from './Screens/ProfileScreen';
-import TrainingScreen from './Screens/TrainingScreen';
+import UpdatesScreen from './Screens/UpdatesScreen';
 import CommunityScreen from './Screens/CommunityScreen';
 
 const Stack = createStackNavigator();
@@ -28,7 +28,7 @@ export default function App() {
         <Stack.Screen name="Chatbot" component={ChatbotScreen} />
         <Stack.Screen name="Partners" component={PartnersScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="Training" component={TrainingScreen} />
+        <Stack.Screen name="Updates" component={UpdatesScreen} />
         <Stack.Screen name="Community" component={CommunityScreen} />
       </Stack.Navigator>
       <StatusBar style="auto" />
